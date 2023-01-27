@@ -2,10 +2,15 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import type { NextApiRequest, NextApiResponse } from "next";
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+if (process.env.NODE_ENV === "development")
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 const credentials = {
   region: "us-west-2",
+  credentials: {
+    accessKeyId: process.env.ACCESS_KEY || "",
+    secretAccessKey: process.env.SECRET_KEY || "",
+  },
 };
 
 // Create an Amazon DynamoDB service client object.
