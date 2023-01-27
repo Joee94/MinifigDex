@@ -2,11 +2,13 @@
 
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+interface Props {
+  searchTerm: string;
+}
 
-export default function SearchResults() {
-  const { isLoading, error, data } = useQuery("search", () =>
-    fetch("/api/search").then((res) => res.json())
+export default function SearchResults({ searchTerm }: Props) {
+  const { isLoading, error, data } = useQuery(["search", searchTerm], () =>
+    fetch(`/api/search?term=${searchTerm}`).then((res) => res.json())
   );
 
   if (error) return <div>Failed to load users</div>;

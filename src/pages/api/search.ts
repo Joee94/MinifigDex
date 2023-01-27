@@ -10,9 +10,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
+  console.log(req.query);
   try {
     const response = await fetch(
-      `https://rebrickable.com/api/v3/lego/minifigs/?search=batman&key=30dded4b0a263eb13fd9727aad167103`,
+      `https://rebrickable.com/api/v3/lego/minifigs/?search=${req.query.term}&key=30dded4b0a263eb13fd9727aad167103`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -23,7 +24,6 @@ export default async function handler(
     );
     const data = await response.json();
     res.status(200).json(data);
-    console.log(data);
   } catch (err) {
     console.log(err);
   }
