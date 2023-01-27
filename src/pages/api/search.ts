@@ -10,7 +10,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  console.log(req.query);
   try {
     const response = await fetch(
       `https://rebrickable.com/api/v3/lego/minifigs/?search=${req.query.term}&key=30dded4b0a263eb13fd9727aad167103`,

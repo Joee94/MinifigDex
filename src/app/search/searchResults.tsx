@@ -2,7 +2,12 @@
 
 import styles from "./page.module.css";
 import Image from "next/image";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useMutation,
+  useQuery,
+} from "react-query";
 
 interface Props {
   searchTerm: string;
@@ -28,17 +33,29 @@ export default function SearchResults({ searchTerm }: Props) {
     { refetchOnWindowFocus: false }
   );
 
+  // Mutations
+  const mutation = useMutation({
+    mutationFn: (id: string) =>
+      fetch(`/api/addToCollection`, {
+        method: "PUT",
+        body: JSON.stringify({ id, command: "add" }),
+      }),
+  });
+
   if (error) return <div>Failed to load users</div>;
   if (isLoading) return <div>Loading...</div>;
   if (!data) return null;
-  console.log(data);
 
   return (
     <ul className={styles.searchList}>
       {data.results.map((item) => {
         return (
           <li key={`${item.name}${item.set_num}`}>
-            <button>
+            <button
+              onClick={() => {
+                mutation.mutate(item.set_num);
+              }}
+            >
               <div>
                 <h3>
                   {item.name} - {item.set_num}
