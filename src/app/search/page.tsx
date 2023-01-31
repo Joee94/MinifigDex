@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Providers from "../providers";
 import SearchResults from "./searchResults";
+import styles from "./page.module.css";
 
 export default function Search() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -10,6 +11,7 @@ export default function Search() {
     <Providers>
       <main>
         <form
+          className={styles.searchBar}
           onSubmit={(e: React.FormEvent) => {
             setSearchTerm(
               (e.target as any).elements["minifig-search"].value || ""

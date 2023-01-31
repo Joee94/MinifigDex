@@ -50,33 +50,36 @@ export default function SearchResults({ searchTerm }: Props) {
     <ul className={styles.searchList}>
       {data.results.map((item) => {
         return (
-          <li key={`${item.name}${item.set_num}`}>
-            <button
+          <li key={`${item.name}${item.set_num}`} className={styles.item}>
+            <h3
+              className={styles.itemHeader}
+              title={`${item.name} - ${item.set_num}`}
+            >
+              {item.name} - {item.set_num}
+            </h3>
+            {item.set_img_url ? (
+              <Image
+                className={styles.image}
+                src={item.set_img_url}
+                width={200}
+                height={200}
+                alt={item.name}
+              />
+            ) : (
+              <Image
+                className={styles.image}
+                src="https://rebrickable.com/static/img/nil_mf.jpg"
+                width={200}
+                height={200}
+                alt={item.name}
+              />
+            )}
+            <input
+              type="checkbox"
               onClick={() => {
                 mutation.mutate(item.set_num);
               }}
-            >
-              <div>
-                <h3>
-                  {item.name} - {item.set_num}
-                </h3>
-                {item.set_img_url ? (
-                  <Image
-                    src={item.set_img_url}
-                    width={200}
-                    height={200}
-                    alt={item.name}
-                  />
-                ) : (
-                  <Image
-                    src="https://rebrickable.com/static/img/nil_mf.jpg"
-                    width={200}
-                    height={200}
-                    alt={item.name}
-                  />
-                )}
-              </div>
-            </button>
+            />
           </li>
         );
       })}

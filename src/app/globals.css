@@ -28,3 +28,15 @@ header {
 nav {
   background-color: #407899;
 }
+
+.menu {
+  display: flex;
+  list-style: none;
+  color: #fffff2;
+  justify-content: center;
+}
+
+.menu > li:not(:last-child)::after {
+  content: "/";
+  padding: 8px;
+}
