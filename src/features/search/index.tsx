@@ -1,11 +1,9 @@
-"use client";
-
+import styles from "./styles/search.module.css";
 import { useState } from "react";
-import Providers from "../providers";
-import SearchResults from "./searchResults";
-import styles from "./page.module.css";
+import Providers from "../../components/providers";
+import SearchResults from "./components/searchResults";
 
-export default function Search() {
+const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
   return (
     <Providers>
@@ -27,4 +25,5 @@ export default function Search() {
       </main>
     </Providers>
   );
-}
+};
+export default Search;
